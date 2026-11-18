@@ -1,5 +1,5 @@
-=== REAL PASS ===
-Date: 2026-11-18 14:57
+=== REAL PATH (cleanup verification) ===
+Date: 2026-11-18 15:45
 
 --- python src/01_check_data.py ---
 [01] Checking input data...

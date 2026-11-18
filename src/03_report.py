@@ -202,7 +202,7 @@ def build_aggregates(df: pd.DataFrame):
     return agg
 
 
-def compute_findings(df, agg, source):
+def compute_findings(agg):
     """Turn aggregates into plain-English findings and actions. All derived."""
     total_sales = agg["total_sales"]
     total_profit = agg["total_profit"]
@@ -294,10 +294,6 @@ def compute_findings(df, agg, source):
         actions = ["No urgent action detected - review the monthly trend for seasonality."]
 
     return findings, actions
-
-
-def _is_synthetic(source: str) -> bool:
-    return source == "synthetic"
 
 
 def _source_label(source: str) -> str:
@@ -1068,7 +1064,7 @@ def main() -> int:
 
     _step(2, 8, "building aggregates")
     agg = build_aggregates(df)
-    findings, actions = compute_findings(df, agg, source)
+    findings, actions = compute_findings(agg)
     print(f"     categories: {len(agg['cat'])}, sub-categories: {len(agg['sub'])}, "
           f"regions: {len(agg['reg'])}, months: {len(agg['monthly'])}, products: {len(agg['prod'])}")
 
