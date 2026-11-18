@@ -2,7 +2,7 @@
 
 - **Source:** Kaggle Superstore sample (9,994 line items, 2014-2017) - USD
 - **Period:** 2014-01-03 to 2017-12-30
-- **Generated:** 2026-11-18 15:45
+- **Generated:** 2026-11-18 16:15
 
 ## KPIs
 
