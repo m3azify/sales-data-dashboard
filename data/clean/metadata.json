@@ -1,0 +1,17 @@
+{
+  "source": "real",
+  "raw_file": "superstore.csv",
+  "rows_in": 9994,
+  "rows_out": 9994,
+  "duplicates_removed": 0,
+  "rows_dropped_critical_nulls": 0,
+  "rows_dropped_invalid": 0,
+  "high_discount_threshold": 0.4,
+  "flag_negative_profit": 1871,
+  "flag_high_discount": 1139,
+  "date_min": "2014-01-03",
+  "date_max": "2017-12-30",
+  "total_sales": 2297200.8603000003,
+  "total_profit": 286397.02170000004,
+  "orders": 5009
+}

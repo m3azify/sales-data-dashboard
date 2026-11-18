@@ -1,0 +1,117 @@
+=== SYNTHETIC PASS ===
+Date: 2026-11-18 14:02
+
+--- python src/00_generate_sample.py ---
+============================================================
+SYNTHETIC DATA GENERATED - seed=42 - NOT real business data
+============================================================
+Rows written : 1492
+Columns      : 19
+Date range   : 01/01/2014 .. 12/31/2016
+Output       : C:\Users\Moaz\freelance-portfolio\proj1\data\raw\synthetic_superstore.csv
+Injected messiness: 10 duplicate rows, 6 null names, 3 null quantities,
+                    4 null discounts, 2 null sales, 2 null profits,
+                    24 whitespace/case variants.
+Every downstream sheet, chart and PNG will be labelled SYNTHETIC.
+EXIT: 0
+
+--- python src/01_check_data.py ---
+[01] Checking input data...
+     Project root: C:\Users\Moaz\freelance-portfolio\proj1
+     NOTE: only the SYNTHETIC dataset is present - outputs will be labelled synthetic.
+[01] SYNTHETIC dataset (synthetic_superstore.csv): C:\Users\Moaz\freelance-portfolio\proj1\data\raw\synthetic_superstore.csv
+     OK - 1,492 data rows, 19 columns, 0.28 MB
+     Columns: Row ID, Order ID, Order Date, Ship Date, Ship Mode, Customer ID, Customer Name, Segment, City, State, Region, Product ID, Category, Sub-Category, Product Name, Sales, Quantity, Discount, Profit
+EXIT: 0
+
+--- python src/02_clean.py ---
+[02] Cleaning sales data...
+[02] (1/9) selecting input file
+     source: SYNTHETIC (synthetic_superstore.csv)
+     *** SYNTHETIC DATA - not real business data ***
+[02] (2/9) loading CSV
+     encoding used: utf-8-sig
+     rows loaded: 1,492
+[02] (3/9) normalising strings + dropping exact duplicates
+     duplicates removed: 10  (rows now 1,482)
+[02] (4/9) parsing dates (explicit formats only)
+     Order Date: parsed OK (0 originally null)
+     Ship Date: parsed OK (0 originally null)
+[02] (5/9) converting numeric columns
+     Sales, Profit, Discount, Quantity, Row ID converted
+[02] (6/9) handling nulls
+     nulls found:
+       Customer Name: 6
+       Sales: 2
+       Quantity: 3
+       Discount: 4
+       Profit: 2
+     dropped rows missing critical fields: 4
+     optional nulls filled (discount->0, quantity->1, text->'Unknown')
+     dropped: sales<=0 0, qty<=0 0, discount out of [0,1] 0, ship<order 0
+     rows now 1,478 (dropped 0)
+[02] (7/9) adding derived columns
+     added Year, Month, Month_Name, Month_Start, Year_Month, Shipping_Days, Profit_Margin, Flag_Negative_Profit, Flag_High_Discount
+     high-discount threshold = 40%
+[02] (8/9) validating + saving
+     saved: C:\Users\Moaz\freelance-portfolio\proj1\data\clean\sales_clean.csv  (1,478 rows)
+     metadata: C:\Users\Moaz\freelance-portfolio\proj1\data\clean\metadata.json
+[02] (9/9) summary
+     source        : synthetic
+     rows in/out   : 1,492 -> 1,478
+     duplicates    : 10
+     total sales   : 1,587,468.06
+     total profit  : 242,200.43
+     margin        : 15.26%
+     orders        : 599
+     loss lines    : 236
+     high-discount : 88
+[02] Done.
+EXIT: 0
+
+--- python src/03_report.py ---
+[03] Building dashboard...
+[03] (1/8) loading clean data
+     rows: 1,478  source: synthetic
+     *** SYNTHETIC DATA - outputs will be labelled synthetic ***
+[03] (2/8) building aggregates
+     categories: 3, sub-categories: 13, regions: 4, months: 48, products: 79
+[03] (3/8) creating workbook
+[03] (4/8) writing Category sheet
+[03] (5/8) writing Region sheet
+[03] (6/8) writing Monthly_Trend and Top_Products sheets
+[03] (7/8) writing Summary sheet (KPIs, actions, charts)
+     saved: C:\Users\Moaz\freelance-portfolio\proj1\output\Sales_Dashboard.xlsx
+[03] (8/8) PNG charts + findings file
+[03] wrote 3 PNG charts to C:\Users\Moaz\freelance-portfolio\proj1\output
+[03] wrote findings: C:\Users\Moaz\freelance-portfolio\proj1\output\key_findings.md
+[03] verifying workbook...
+     sheets OK: ['Summary', 'Category', 'Region', 'Monthly_Trend', 'Top_Products']
+     chart XML files: 6  -> {'barChart': 3, 'lineChart': 2, 'pieChart': 1}
+     KPIs OK: sales=1,587,468 profit=242,200 margin=15.26%
+     PNG OK: 01_monthly_sales_profit.png (1842x963, 171 KB)
+     PNG OK: 02_subcategory_profit.png (1736x1118, 86 KB)
+     PNG OK: 03_region_share.png (1428x1040, 72 KB)
+     findings file OK: C:\Users\Moaz\freelance-portfolio\proj1\output\key_findings.md
+     conditional-format rules: 3
+[03] verification passed
+
+========================================================================
+KEY FINDINGS
+========================================================================
+  1. Sales totalled $1,587,468 and profit $242,200 (15.3% margin) across 599 orders and 1,478 line items.
+  2. Technology is the largest category at $934,656 (58.9% of sales) with a 24.0% margin.
+  3. West has the best profit margin (17.6%); East has the lowest (13.1%).
+  4. Discounts of 40% or more cover 88 line items (4.8% of sales) and lose $-31,641.
+  5. Peak month was Oct 2014 ($65,740); Nov-Dec account for 20.3% of annual sales.
+  6. 236 line items (16.0% of all) are loss-making, totalling $-62,668.
+  7. The top 10 products account for 48.2% of all sales (concentration risk worth monitoring).
+
+ACTIONS
+========================================================================
+  1. Cap discounts in Tables: it lost $35,492 on $227,557 of sales.
+  2. Require approval for discounts of 40% or more (88 lines lose $31,641).
+  3. Grow Technology: it leads sales at 24.0% margin.
+
+[03] Done.
+EXIT: 0

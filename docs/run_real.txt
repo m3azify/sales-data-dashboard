@@ -1,0 +1,94 @@
+=== REAL PASS ===
+Date: 2026-11-18 14:03
+
+--- python src/01_check_data.py ---
+[01] Checking input data...
+     Project root: C:\Users\Moaz\freelance-portfolio\proj1
+[01] REAL dataset (superstore.csv): C:\Users\Moaz\freelance-portfolio\proj1\data\raw\superstore.csv
+     OK - 9,994 data rows, 21 columns, 2.18 MB
+     Columns: Row ID, Order ID, Order Date, Ship Date, Ship Mode, Customer ID, Customer Name, Segment, Country, City, State, Postal Code, Region, Product ID, Category, Sub-Category, Product Name, Sales, Quantity, Discount, Profit
+EXIT: 0
+
+--- python src/02_clean.py ---
+[02] Cleaning sales data...
+[02] (1/9) selecting input file
+     source: REAL (superstore.csv)
+[02] (2/9) loading CSV
+     encoding used: utf-8-sig
+     rows loaded: 9,994
+[02] (3/9) normalising strings + dropping exact duplicates
+     duplicates removed: 0  (rows now 9,994)
+[02] (4/9) parsing dates (explicit formats only)
+     Order Date: parsed OK (0 originally null)
+     Ship Date: parsed OK (0 originally null)
+[02] (5/9) converting numeric columns
+     Sales, Profit, Discount, Quantity, Row ID converted
+[02] (6/9) handling nulls
+     no missing values found
+     dropped rows missing critical fields: 0
+     optional nulls filled (discount->0, quantity->1, text->'Unknown')
+     dropped: sales<=0 0, qty<=0 0, discount out of [0,1] 0, ship<order 0
+     rows now 9,994 (dropped 0)
+[02] (7/9) adding derived columns
+     added Year, Month, Month_Name, Month_Start, Year_Month, Shipping_Days, Profit_Margin, Flag_Negative_Profit, Flag_High_Discount
+     high-discount threshold = 40%
+[02] (8/9) validating + saving
+     saved: C:\Users\Moaz\freelance-portfolio\proj1\data\clean\sales_clean.csv  (9,994 rows)
+     metadata: C:\Users\Moaz\freelance-portfolio\proj1\data\clean\metadata.json
+[02] (9/9) summary
+     source        : real
+     rows in/out   : 9,994 -> 9,994
+     duplicates    : 0
+     total sales   : 2,297,200.86
+     total profit  : 286,397.02
+     margin        : 12.47%
+     orders        : 5,009
+     loss lines    : 1,871
+     high-discount : 1,139
+[02] Done.
+EXIT: 0
+
+--- python src/03_report.py ---
+[03] Building dashboard...
+[03] (1/8) loading clean data
+     rows: 9,994  source: real
+[03] (2/8) building aggregates
+     categories: 3, sub-categories: 17, regions: 4, months: 48, products: 1894
+[03] (3/8) creating workbook
+[03] (4/8) writing Category sheet
+[03] (5/8) writing Region sheet
+[03] (6/8) writing Monthly_Trend and Top_Products sheets
+[03] (7/8) writing Summary sheet (KPIs, actions, charts)
+     saved: C:\Users\Moaz\freelance-portfolio\proj1\output\Sales_Dashboard.xlsx
+[03] (8/8) PNG charts + findings file
+[03] wrote 3 PNG charts to C:\Users\Moaz\freelance-portfolio\proj1\output
+[03] wrote findings: C:\Users\Moaz\freelance-portfolio\proj1\output\key_findings.md
+[03] verifying workbook...
+     sheets OK: ['Summary', 'Category', 'Region', 'Monthly_Trend', 'Top_Products']
+     chart XML files: 6  -> {'barChart': 3, 'lineChart': 2, 'pieChart': 1}
+     KPIs OK: sales=2,297,201 profit=286,397 margin=12.47%
+     PNG OK: 01_monthly_sales_profit.png (1855x963, 150 KB)
+     PNG OK: 02_subcategory_profit.png (1725x1118, 99 KB)
+     PNG OK: 03_region_share.png (1428x1040, 73 KB)
+     findings file OK: C:\Users\Moaz\freelance-portfolio\proj1\output\key_findings.md
+     conditional-format rules: 3
+[03] verification passed
+
+========================================================================
+KEY FINDINGS
+========================================================================
+  1. Sales totalled $2,297,201 and profit $286,397 (12.5% margin) across 5,009 orders and 9,994 line items.
+  2. Technology is the largest category at $836,154 (36.4% of sales) with a 17.4% margin.
+  3. West has the best profit margin (14.9%); Central has the lowest (7.9%).
+  4. Discounts of 40% or more cover 1,139 line items (10.7% of sales) and lose $-125,346.
+  5. Peak month was Nov 2017 ($118,448); Nov-Dec account for 29.5% of annual sales.
+  6. 1,871 line items (18.7% of all) are loss-making, totalling $-156,131.
+
+ACTIONS
+========================================================================
+  1. Cap discounts in Tables: it lost $17,725 on $206,966 of sales.
+  2. Require approval for discounts of 40% or more (1,139 lines lose $125,346).
+  3. Grow Technology: it leads sales at 17.4% margin.
+
+[03] Done.
+EXIT: 0
