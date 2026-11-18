@@ -17,7 +17,7 @@ Expected folder : C:\Users\Moaz\freelance-portfolio\proj1\data\raw
 Expected file   : superstore.csv  (the Kaggle 'Sample - Superstore.csv')
 ...
 No Kaggle account? Generate a synthetic demo instead (clearly labelled):
-  python src/00_generate_sample.py
+  python src\00_generate_sample.py
 ------------------------------------------------------------------------
 EXIT CODE: 1
 ```
@@ -38,8 +38,8 @@ EXIT: 0
 $ python src/02_clean.py
      duplicates removed: 10  (rows now 1,482)
      rows in/out   : 1,492 -> 1,478
-     total sales   : 1,587,468.00  (synthetic)
-     total profit  : 242,200.00
+     total sales   : 1,587,468.06
+     total profit  : 242,200.43
      margin        : 15.26%
      orders        : 599
 EXIT: 0
@@ -49,11 +49,13 @@ $ python src/03_report.py
      KPIs OK: sales=1,587,468 profit=242,200 margin=15.26%
      PNG OK: 01_monthly_sales_profit.png (1842x963, 171 KB)
      PNG OK: 02_subcategory_profit.png (1736x1118, 86 KB)
-     PNG OK: 03_region_share.png (1439x1040, 84 KB)
+     PNG OK: 03_region_share.png (1428x1040, 72 KB)
      conditional-format rules: 3
      verification passed
 EXIT: 0
 ```
+
+Note: the printed date range is now `2014-01-01 .. 2017-12-30` (fix 1).
 
 ## Pass 2 - real Kaggle Superstore CSV
 
@@ -76,9 +78,9 @@ $ python src/03_report.py
      sheets OK: ['Summary', 'Category', 'Region', 'Monthly_Trend', 'Top_Products']
      chart XML files: 6  -> {'barChart': 3, 'lineChart': 2, 'pieChart': 1}
      KPIs OK: sales=2,297,201 profit=286,397 margin=12.47%
-     PNG OK: 01_monthly_sales_profit.png (1842x963, 171 KB)
-     PNG OK: 02_subcategory_profit.png (1736x1118, 86 KB)
-     PNG OK: 03_region_share.png (1439x1040, 84 KB)
+     PNG OK: 01_monthly_sales_profit.png (1855x963, 150 KB)
+     PNG OK: 02_subcategory_profit.png (1725x1118, 99 KB)
+     PNG OK: 03_region_share.png (1428x1040, 73 KB)
      conditional-format rules: 3
      verification passed
 EXIT: 0

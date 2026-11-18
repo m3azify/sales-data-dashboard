@@ -14,7 +14,6 @@ Run from project root: python src/00_generate_sample.py
 from __future__ import annotations
 
 import calendar
-import random
 from datetime import date, timedelta
 from pathlib import Path
 
@@ -132,7 +131,6 @@ def _ship_days(ship_mode: str, rng: np.random.Generator) -> int:
 
 def main() -> None:
     rng = np.random.default_rng(SEED)
-    random.seed(SEED)
     products = _make_products(rng)
     customers = _make_customers(rng)
 
@@ -220,7 +218,8 @@ def main() -> None:
     print("=" * 60)
     print(f"Rows written : {len(df)}")
     print(f"Columns      : {len(df.columns)}")
-    print(f"Date range   : {df['Order Date'].min()} .. {df['Order Date'].max()}")
+    _dates = pd.to_datetime(df["Order Date"], format="%m/%d/%Y")
+    print(f"Date range   : {_dates.min():%Y-%m-%d} .. {_dates.max():%Y-%m-%d}")
     print(f"Output       : {out_path}")
     print("Injected messiness: 10 duplicate rows, 6 null names, 3 null quantities,")
     print("                    4 null discounts, 2 null sales, 2 null profits,")

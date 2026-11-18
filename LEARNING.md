@@ -96,8 +96,8 @@ Order of operations, and WHY:
   border. No merged cells, which avoids a classic openpyxl border bug.
 - **Conditional formatting**: colour scale on margin, red font on negative
   profit, data bars on sales. The owner sees problems at a glance.
-- **Native Excel charts** (line, bar, pie) with `delete=False` on both axes,
-  because openpyxl charts sometimes hide an axis otherwise.
+- **Native Excel charts** (line, bar, pie) built with openpyxl. If an axis ever
+  disappears in Excel, set `chart.x_axis.delete = False` and the same for y.
 - **Verification at the end**: reopen the file from disk, check sheet names,
   count chart XML files and their types, check KPI cells, check PNG sizes.
   A click that returned is not proof the task succeeded.

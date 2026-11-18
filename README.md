@@ -39,11 +39,14 @@ Excel). Sheets: **Summary**, **Category**, **Region**, **Monthly_Trend**,
 
 - **Official source:** [Kaggle - Superstore Dataset (vivek468)](https://www.kaggle.com/datasets/vivek468/superstore-dataset-final)
   (Vivek Chowdhury; original data from Tableau's sample, 2014-2017, 9,994 rows, 21 columns).
-- **For this run** the real Kaggle file was unavailable without an account, so a
-  byte-verified public mirror of the same file was used (2,288,516 bytes,
-  9,994 rows, 21 columns, totals match the published figures: $2,297,200.86
-  sales / $286,397.02 profit). The README and workbook cite Kaggle as the
-  official source.
+- **For this run** the real Kaggle file was unavailable without an account, so it
+  was downloaded from the public mirror
+  `https://gist.githubusercontent.com/mateuszdorobek/98e7882f109bd3fb0763dc4ee1e8e260/raw/Sample%20-%20Superstore.csv`
+  (filename `Sample - Superstore.csv`, 2,288,516 bytes, 9,994 rows, 21 columns).
+  SHA-256 of the saved `data/raw/superstore.csv`:
+  `1D8FB6378C48E005665996F5980E0F0DD4E237B55860EEC34F3AD1CA2CDDFA91`.
+  Totals match the published figures: $2,297,200.86 sales / $286,397.02 profit.
+  Kaggle remains the official/canonical source.
 - **No Kaggle account?** Run `python src/00_generate_sample.py` to create a
   clearly labelled **synthetic** dataset (seed 42, ~1,492 rows, 19 columns).
   Every downstream sheet, chart, PNG and the Excel source badge are labelled
@@ -54,7 +57,7 @@ Excel). Sheets: **Summary**, **Category**, **Region**, **Monthly_Trend**,
 
 | Tool | Version | Why |
 |---|---|---|
-| Python | 3.15.2 | Runtime (spec said 3.14.9; the machine has 3.15.2; pins support 3.11+) |
+| Python | 3.15.2 | Runtime, tested on 3.15.2; supported range 3.12-3.15 (numpy 2.5.5 requires >=3.12) |
 | pandas | 3.1.1 | Loading, cleaning, grouping |
 | numpy | 2.5.5 | Synthetic data generation |
 | openpyxl | 3.1.5 | Native Excel charts, formatting, KPI cards |
